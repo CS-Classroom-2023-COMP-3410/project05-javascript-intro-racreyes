@@ -1,0 +1,45 @@
+<!--Sorting Algorithms Visualization Tool-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sorting Visualization Tool</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.0.2/tailwind.min.css" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="min-h-screen bg-gradient-to-r from-green-400 to-blue-500 flex flex-col items-center justify-center text-white">
+  <div class="w-full max-w-4xl bg-white bg-opacity-20 backdrop-blur-md p-6 rounded-lg shadow-lg">
+    <h1 class="text-3xl font-bold mb-6 text-center">Sorting Visualization Tool</h1>
+
+    <div class="flex items-center justify-between mb-6">
+      <label>
+        <span class="mr-2">Select Algorithm:</span>
+        <select id="algorithm-selector" class="px-2 py-1 rounded bg-white text-black">
+          <option value="bubble">Bubble Sort</option>
+          <option value="insertion">Insertion Sort</option>
+        </select>
+      </label>
+
+      <label>
+        <span class="mr-2">Animation Speed:</span>
+        <input id="speed-slider" type="range" min="10" max="1000" value="500" class="w-40">
+      </label>
+
+      <button id="reset-array" class="px-4 py-2 bg-red-500 hover:bg-red-600 text-white rounded">Reset Array</button>
+    </div>
+
+    <div id="array-container" class="flex items-end h-64 bg-gray-800 rounded p-4">
+      <!-- Bars will be dynamically added here -->
+    </div>
+
+    <button id="start-sort" class="mt-6 px-6 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded">Start Sorting</button>
+
+    <div id="commentary" class="mt-6 text-lg bg-white bg-opacity-30 p-4 rounded">
+      <!-- Explanations will be displayed here -->
+    </div>
+  </div>
+
+  <script src="js/project09.js"></script>
+</body>
+</html>
