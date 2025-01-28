@@ -2,27 +2,33 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Interactive Periodic Table</title>
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.0.2/tailwind.min.css" rel="stylesheet">
-  <script src="https://cdn.tailwindcss.com"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Periodic Table</title>
+    <script src="js/project06.js" defer></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.0.2/tailwind.min.css" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="min-h-screen bg-gradient-to-r from-blue-500 to-green-500 flex flex-col items-center text-white">
-  <div class="w-full max-w-6xl bg-white bg-opacity-20 backdrop-blur-md p-6 rounded-lg shadow-lg mt-10">
-    <h1 class="text-4xl font-bold mb-6 text-center">Interactive Periodic Table</h1>
-    <input id="search-bar" type="text" placeholder="Search by name, symbol, or atomic number" 
-           class="w-full px-4 py-2 mb-6 rounded-lg border border-gray-300 text-black" />
+<body class="min-h-screen bg-gradient-to-r from-teal-400 to-blue-500 flex flex-col items-center justify-center">
+    <div class="container mx-auto p-6">
+        <h1 class="text-3xl font-bold mb-6 text-center text-white">Interactive Periodic Table</h1>
 
-    <div id="table-grid" class="grid grid-cols-18 gap-1 auto-rows-min">
-      <!-- Periodic table elements will be dynamically added here -->
-    </div>
+        <div class="mb-4">
+            <input 
+                id="search-bar" 
+                type="text" 
+                placeholder="Search elements by name, symbol, or atomic number..." 
+                class="w-full p-2 border border-gray-300 rounded shadow"
+            >
+        </div>
 
-    <div id="element-details" class="mt-6 hidden p-4 bg-white bg-opacity-30 rounded-lg">
-      <h2 class="text-2xl font-bold mb-2">Element Details</h2>
-      <p id="element-info" class="text-lg"></p>
+        <div id="table-grid" class="grid grid-cols-8 gap-2">
+            <!-- Elements will be dynamically populated here -->
+        </div>
+
+        <div id="element-details" class="mt-6 p-4 bg-white rounded shadow border">
+            <p class="text-gray-600">Select an element to see details here.</p>
+        </div>
     </div>
-  </div>
-  <script src="js/project06.js"></script>
 </body>
 </html>

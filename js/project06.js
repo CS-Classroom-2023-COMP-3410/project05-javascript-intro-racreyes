@@ -1,127 +1,176 @@
-//Interactive Periodic Table
 const elements = [
-  { atomicNumber: 1, symbol: "H", name: "Hydrogen", group: "Nonmetal", period: 1 },
-  { atomicNumber: 2, symbol: "He", name: "Helium", group: "Noble Gas", period: 1 },
-  { atomicNumber: 3, symbol: "Li", name: "Lithium", group: "Alkali Metal", period: 2 },
-  { atomicNumber: 4, symbol: "Be", name: "Beryllium", group: "Alkaline Earth Metal", period: 2 },
-  { atomicNumber: 5, symbol: "B", name: "Boron", group: "Metalloid", period: 2 },
-  { atomicNumber: 6, symbol: "C", name: "Carbon", group: "Nonmetal", period: 2 },
-  { atomicNumber: 7, symbol: "N", name: "Nitrogen", group: "Nonmetal", period: 2 },
-  { atomicNumber: 8, symbol: "O", name: "Oxygen", group: "Nonmetal", period: 2 },
-  { atomicNumber: 9, symbol: "F", name: "Fluorine", group: "Halogen", period: 2 },
-  { atomicNumber: 10, symbol: "Ne", name: "Neon", group: "Noble Gas", period: 2 },
-  { atomicNumber: 11, symbol: "Na", name: "Sodium", group: "Alkali Metal", period: 3 },
-  { atomicNumber: 12, symbol: "Mg", name: "Magnesium", group: "Alkaline Earth Metal", period: 3 },
-  { atomicNumber: 13, symbol: "Al", name: "Aluminium", group: "Post-transition Metal", period: 3 },
-  { atomicNumber: 14, symbol: "Si", name: "Silicon", group: "Metalloid", period: 3 },
-  { atomicNumber: 15, symbol: "P", name: "Phosphorus", group: "Nonmetal", period: 3 },
-  { atomicNumber: 16, symbol: "S", name: "Sulfur", group: "Nonmetal", period: 3 },
-  { atomicNumber: 17, symbol: "Cl", name: "Chlorine", group: "Halogen", period: 3 },
-  { atomicNumber: 18, symbol: "Ar", name: "Argon", group: "Noble Gas", period: 3 },
-  { atomicNumber: 19, symbol: "K", name: "Potassium", group: "Alkali Metal", period: 4 },
-  { atomicNumber: 20, symbol: "Ca", name: "Calcium", group: "Alkaline Earth Metal", period: 4 },
-  { atomicNumber: 21, symbol: "Sc", name: "Scandium", group: "Transition Metal", period: 4 },
-  { atomicNumber: 22, symbol: "Ti", name: "Titanium", group: "Transition Metal", period: 4 },
-  { atomicNumber: 23, symbol: "V", name: "Vanadium", group: "Transition Metal", period: 4 },
-  { atomicNumber: 24, symbol: "Cr", name: "Chromium", group: "Transition Metal", period: 4 },
-  { atomicNumber: 25, symbol: "Mn", name: "Manganese", group: "Transition Metal", period: 4 },
-  { atomicNumber: 26, symbol: "Fe", name: "Iron", group: "Transition Metal", period: 4 },
-  { atomicNumber: 27, symbol: "Co", name: "Cobalt", group: "Transition Metal", period: 4 },
-  { atomicNumber: 28, symbol: "Ni", name: "Nickel", group: "Transition Metal", period: 4 },
-  { atomicNumber: 29, symbol: "Cu", name: "Copper", group: "Transition Metal", period: 4 },
-  { atomicNumber: 30, symbol: "Zn", name: "Zinc", group: "Transition Metal", period: 4 },
-  { atomicNumber: 31, symbol: "Ga", name: "Gallium", group: "Post-transition Metal", period: 4 },
-  { atomicNumber: 32, symbol: "Ge", name: "Germanium", group: "Metalloid", period: 4 },
-  { atomicNumber: 33, symbol: "As", name: "Arsenic", group: "Metalloid", period: 4 },
-  { atomicNumber: 34, symbol: "Se", name: "Selenium", group: "Nonmetal", period: 4 },
-  { atomicNumber: 35, symbol: "Br", name: "Bromine", group: "Halogen", period: 4 },
-  { atomicNumber: 36, symbol: "Kr", name: "Krypton", group: "Noble Gas", period: 4 },
-  // Continue adding elements for the full periodic table...
+    { number: 1, symbol: 'H', name: 'Hydrogen', group: 'Reactive nonmetals' },
+    { number: 2, symbol: 'He', name: 'Helium', group: 'Noble gases' },
+    { number: 3, symbol: 'Li', name: 'Lithium', group: 'Alkali metals' },
+    { number: 4, symbol: 'Be', name: 'Beryllium', group: 'Alkaline earth metals' },
+    { number: 5, symbol: 'B', name: 'Boron', group: 'Metalloids' },
+    { number: 6, symbol: 'C', name: 'Carbon', group: 'Reactive nonmetals' },
+    { number: 7, symbol: 'N', name: 'Nitrogen', group: 'Reactive nonmetals' },
+    { number: 8, symbol: 'O', name: 'Oxygen', group: 'Reactive nonmetals' },
+    { number: 9, symbol: 'F', name: 'Fluorine', group: 'Reactive nonmetals' },
+    { number: 10, symbol: 'Ne', name: 'Neon', group: 'Noble gases' },
+    { number: 11, symbol: 'Na', name: 'Sodium', group: 'Alkali metals' },
+    { number: 12, symbol: 'Mg', name: 'Magnesium', group: 'Alkaline earth metals' },
+    { number: 13, symbol: 'Al', name: 'Aluminium', group: 'Post-transition metals' },
+    { number: 14, symbol: 'Si', name: 'Silicon', group: 'Metalloids' },
+    { number: 15, symbol: 'P', name: 'Phosphorus', group: 'Reactive nonmetals' },
+    { number: 16, symbol: 'S', name: 'Sulfur', group: 'Reactive nonmetals' },
+    { number: 17, symbol: 'Cl', name: 'Chlorine', group: 'Reactive nonmetals' },
+    { number: 18, symbol: 'Ar', name: 'Argon', group: 'Noble gases' },
+    { number: 19, symbol: 'K', name: 'Potassium', group: 'Alkali metals' },
+    { number: 20, symbol: 'Ca', name: 'Calcium', group: 'Alkaline earth metals' },
+    { number: 21, symbol: 'Sc', name: 'Scandium', group: 'Transition metals' },
+    { number: 22, symbol: 'Ti', name: 'Titanium', group: 'Transition metals' },
+    { number: 23, symbol: 'V', name: 'Vanadium', group: 'Transition metals' },
+    { number: 24, symbol: 'Cr', name: 'Chromium', group: 'Transition metals' },
+    { number: 25, symbol: 'Mn', name: 'Manganese', group: 'Transition metals' },
+    { number: 26, symbol: 'Fe', name: 'Iron', group: 'Transition metals' },
+    { number: 27, symbol: 'Co', name: 'Cobalt', group: 'Transition metals' },
+    { number: 28, symbol: 'Ni', name: 'Nickel', group: 'Transition metals' },
+    { number: 29, symbol: 'Cu', name: 'Copper', group: 'Transition metals' },
+    { number: 30, symbol: 'Zn', name: 'Zinc', group: 'Transition metals' },
+    { number: 31, symbol: 'Ga', name: 'Gallium', group: 'Post-transition metals' },
+    { number: 32, symbol: 'Ge', name: 'Germanium', group: 'Metalloids' },
+    { number: 33, symbol: 'As', name: 'Arsenic', group: 'Metalloids' },
+    { number: 34, symbol: 'Se', name: 'Selenium', group: 'Reactive nonmetals' },
+    { number: 35, symbol: 'Br', name: 'Bromine', group: 'Reactive nonmetals' },
+    { number: 36, symbol: 'Kr', name: 'Krypton', group: 'Noble gases' },
+    { number: 37, symbol: 'Rb', name: 'Rubidium', group: 'Alkali metals' },
+    { number: 38, symbol: 'Sr', name: 'Strontium', group: 'Alkaline earth metals' },
+    { number: 39, symbol: 'Y', name: 'Yttrium', group: 'Transition metals' },
+    { number: 40, symbol: 'Zr', name: 'Zirconium', group: 'Transition metals' },
+    { number: 41, symbol: 'Nb', name: 'Niobium', group: 'Transition metals' },
+    { number: 42, symbol: 'Mo', name: 'Molybdenum', group: 'Transition metals' },
+    { number: 43, symbol: 'Tc', name: 'Technetium', group: 'Transition metals' },
+    { number: 44, symbol: 'Ru', name: 'Ruthenium', group: 'Transition metals' },
+    { number: 45, symbol: 'Rh', name: 'Rhodium', group: 'Transition metals' },
+    { number: 46, symbol: 'Pd', name: 'Palladium', group: 'Transition metals' },
+    { number: 47, symbol: 'Ag', name: 'Silver', group: 'Transition metals' },
+    { number: 48, symbol: 'Cd', name: 'Cadmium', group: 'Transition metals' },
+    { number: 49, symbol: 'In', name: 'Indium', group: 'Post-transition metals' },
+    { number: 50, symbol: 'Sn', name: 'Tin', group: 'Post-transition metals' },
+    { number: 51, symbol: 'Sb', name: 'Antimony', group: 'Metalloids' },
+    { number: 52, symbol: 'Te', name: 'Tellurium', group: 'Metalloids' },
+    { number: 53, symbol: 'I', name: 'Iodine', group: 'Reactive nonmetals' },
+    { number: 54, symbol: 'Xe', name: 'Xenon', group: 'Noble gases' },
+    { number: 55, symbol: 'Cs', name: 'Caesium', group: 'Alkali metals' },
+    { number: 56, symbol: 'Ba', name: 'Barium', group: 'Alkaline earth metals' },
+    { number: 57, symbol: 'La', name: 'Lanthanum', group: 'Lanthanides' },
+    { number: 58, symbol: 'Ce', name: 'Cerium', group: 'Lanthanides' },
+    { number: 59, symbol: 'Pr', name: 'Praseodymium', group: 'Lanthanides' },
+    { number: 60, symbol: 'Nd', name: 'Neodymium', group: 'Lanthanides' },
+    { number: 61, symbol: 'Pm', name: 'Promethium', group: 'Lanthanides' },
+    { number: 62, symbol: 'Sm', name: 'Samarium', group: 'Lanthanides' },
+    { number: 63, symbol: 'Eu', name: 'Europium', group: 'Lanthanides' },
+    { number: 64, symbol: 'Gd', name: 'Gadolinium', group: 'Lanthanides' },
+    { number: 65, symbol: 'Tb', name: 'Terbium', group: 'Lanthanides' },
+    { number: 66, symbol: 'Dy', name: 'Dysprosium', group: 'Lanthanides' },
+    { number: 67, symbol: 'Ho', name: 'Holmium', group: 'Lanthanides' },
+    { number: 68, symbol: 'Er', name: 'Erbium', group: 'Lanthanides' },
+    { number: 69, symbol: 'Tm', name: 'Thulium', group: 'Lanthanides' },
+    { number: 70, symbol: 'Yb', name: 'Ytterbium', group: 'Lanthanides' },
+    { number: 71, symbol: 'Lu', name: 'Lutetium', group: 'Lanthanides' },
+    { number: 72, symbol: 'Hf', name: 'Hafnium', group: 'Transition metals' },
+    { number: 73, symbol: 'Ta', name: 'Tantalum', group: 'Transition metals' },
+    { number: 74, symbol: 'W', name: 'Tungsten', group: 'Transition metals' },
+    { number: 75, symbol: 'Re', name: 'Rhenium', group: 'Transition metals' },
+    { number: 76, symbol: 'Os', name: 'Osmium', group: 'Transition metals' },
+    { number: 77, symbol: 'Ir', name: 'Iridium', group: 'Transition metals' },
+    { number: 78, symbol: 'Pt', name: 'Platinum', group: 'Transition metals' },
+    { number: 79, symbol: 'Au', name: 'Gold', group: 'Transition metals' },
+    { number: 80, symbol: 'Hg', name: 'Mercury', group: 'Transition metals' },
+    { number: 81, symbol: 'Tl', name: 'Thallium', group: 'Post-transition metals' },
+    { number: 82, symbol: 'Pb', name: 'Lead', group: 'Post-transition metals' },
+    { number: 83, symbol: 'Bi', name: 'Bismuth', group: 'Post-transition metals' },
+    { number: 84, symbol: 'Po', name: 'Polonium', group: 'Metalloids' },
+    { number: 85, symbol: 'At', name: 'Astatine', group: 'Metalloids' },
+    { number: 86, symbol: 'Rn', name: 'Radon', group: 'Noble gases' },
+    { number: 87, symbol: 'Fr', name: 'Francium', group: 'Alkali metals' },
+    { number: 88, symbol: 'Ra', name: 'Radium', group: 'Alkaline earth metals' },
+    { number: 89, symbol: 'Ac', name: 'Actinium', group: 'Actinides' },
+    { number: 90, symbol: 'Th', name: 'Thorium', group: 'Actinides' },
+    { number: 91, symbol: 'Pa', name: 'Protactinium', group: 'Actinides' },
+    { number: 92, symbol: 'U', name: 'Uranium', group: 'Actinides' },
+    { number: 93, symbol: 'Np', name: 'Neptunium', group: 'Actinides' },
+    { number: 94, symbol: 'Pu', name: 'Plutonium', group: 'Actinides' },
+    { number: 95, symbol: 'Am', name: 'Americium', group: 'Actinides' },
+    { number: 96, symbol: 'Cm', name: 'Curium', group: 'Actinides' },
+    { number: 97, symbol: 'Bk', name: 'Berkelium', group: 'Actinides' },
+    { number: 98, symbol: 'Cf', name: 'Californium', group: 'Actinides' },
+    { number: 99, symbol: 'Es', name: 'Einsteinium', group: 'Actinides' },
+    { number: 100, symbol: 'Fm', name: 'Fermium', group: 'Actinides' },
+    { number: 101, symbol: 'Md', name: 'Mendelevium', group: 'Actinides' },
+    { number: 102, symbol: 'No', name: 'Nobelium', group: 'Actinides' },
+    { number: 103, symbol: 'Lr', name: 'Lawrencium', group: 'Actinides' },
+    { number: 104, symbol: 'Rf', name: 'Rutherfordium', group: 'Transition metals' },
+    { number: 105, symbol: 'Db', name: 'Dubnium', group: 'Transition metals' },
+    { number: 106, symbol: 'Sg', name: 'Seaborgium', group: 'Transition metals' },
+    { number: 107, symbol: 'Bh', name: 'Bohrium', group: 'Transition metals' },
+    { number: 108, symbol: 'Hs', name: 'Hassium', group: 'Transition metals' },
+    { number: 109, symbol: 'Mt', name: 'Meitnerium', group: 'Unknown properties' },
+    { number: 110, symbol: 'Ds', name: 'Darmstadtium', group: 'Unknown properties' },
+    { number: 111, symbol: 'Rg', name: 'Roentgenium', group: 'Unknown properties' },
+    { number: 112, symbol: 'Cn', name: 'Copernicium', group: 'Transition metals' },
+    { number: 113, symbol: 'Nh', name: 'Nihonium', group: 'Post-transition metals' },
+    { number: 114, symbol: 'Fl', name: 'Flerovium', group: 'Post-transition metals' },
+    { number: 115, symbol: 'Mc', name: 'Moscovium', group: 'Post-transition metals' },
+    { number: 116, symbol: 'Lv', name: 'Livermorium', group: 'Post-transition metals' },
+    { number: 117, symbol: 'Ts', name: 'Tennessine', group: 'Unknown properties' },
+    { number: 118, symbol: 'Og', name: 'Oganesson', group: 'Unknown properties' }
 ];
+ 
+window.addEventListener('DOMContentLoaded', () => {
+    const table = document.getElementById('table-grid');
+    const details = document.getElementById('element-details');
+    const searchInput = document.getElementById('search-bar');
 
-class PeriodicTable {
-  constructor() {
-    this.tableGrid = document.getElementById("table-grid");
-    this.searchBar = document.getElementById("search-bar");
-    this.elementDetails = document.getElementById("element-details");
-    this.elementInfo = document.getElementById("element-info");
+    function renderTable() {
+        elements.forEach(element => {
+            const elementDiv = document.createElement('div');
+            elementDiv.className = 'p-2 m-1 text-center border rounded hover:bg-blue-100 cursor-pointer';
+            elementDiv.dataset.symbol = element.symbol;
+            elementDiv.dataset.group = element.group;
+            elementDiv.innerHTML = `<div>${element.number}</div><div>${element.symbol}</div><div>${element.name}</div>`;
 
-    this.renderTable();
-    this.addEventListeners();
-  }
+            elementDiv.addEventListener('click', () => {
+                highlightElementAndGroup(element);
+            });
 
-  renderTable() {
-    this.tableGrid.innerHTML = "";
-
-    for (let i = 0; i < 7; i++) {
-      const emptyRow = document.createElement("div");
-      emptyRow.style.gridColumn = "span 18";
-      emptyRow.style.visibility = "hidden";
-      this.tableGrid.appendChild(emptyRow);
+            table.appendChild(elementDiv);
+        });
     }
 
-    elements.forEach((element) => {
-      const elementDiv = document.createElement("div");
-      elementDiv.className = "p-4 bg-gray-200 text-black rounded-lg shadow text-center cursor-pointer";
-      elementDiv.style.gridColumnStart = element.columnStart;
-      elementDiv.style.gridColumnEnd = `span ${element.columnSpan}`;
-      elementDiv.dataset.atomicNumber = element.atomicNumber;
-      elementDiv.dataset.group = element.group;
+    function highlightElementAndGroup(selected) {
+        document.querySelectorAll('#table-grid > div').forEach(div => {
+            div.classList.remove('bg-blue-300', 'border-blue-500', 'bg-green-200');
+        });
 
-      elementDiv.innerHTML = `
-        <div class="font-bold">${element.symbol}</div>
-        <div class="text-sm">${element.atomicNumber}</div>
-      `;
+        const selectedDiv = document.querySelector(`[data-symbol="${selected.symbol}"]`);
+        const groupDivs = document.querySelectorAll(`[data-group="${selected.group}"]`);
 
-      elementDiv.addEventListener("click", () => this.showElementDetails(element));
-      this.tableGrid.appendChild(elementDiv);
+        selectedDiv.classList.add('bg-blue-300', 'border-blue-500');
+        groupDivs.forEach(div => div.classList.add('bg-green-200'));
+
+        details.innerHTML = `
+            <h3 class="text-lg font-bold">${selected.name} (${selected.symbol})</h3>
+            <p>Atomic Number: ${selected.number}</p>
+            <p>Group: ${selected.group}</p>
+        `;
+    }
+
+    searchInput.addEventListener('input', (e) => {
+        const query = e.target.value.toLowerCase();
+        document.querySelectorAll('#table-grid > div').forEach(div => {
+            const symbol = div.dataset.symbol.toLowerCase();
+            const name = elements.find(el => el.symbol.toLowerCase() === symbol).name.toLowerCase();
+
+            if (symbol.includes(query) || name.includes(query)) {
+                div.style.display = '';
+            } else {
+                div.style.display = 'none';
+            }
+        });
     });
-  }
 
-  showElementDetails(element) {
-    this.elementInfo.innerHTML = `
-      <p><strong>Atomic Number:</strong> ${element.atomicNumber}</p>
-      <p><strong>Symbol:</strong> ${element.symbol}</p>
-      <p><strong>Name:</strong> ${element.name}</p>
-      <p><strong>Group:</strong> ${element.group}</p>
-      <p><strong>Period:</strong> ${element.period}</p>
-    `;
-
-    this.highlightGroup(element.group);
-    this.elementDetails.classList.remove("hidden");
-  }
-
-  highlightGroup(group) {
-    document.querySelectorAll("[data-group]").forEach((elementDiv) => {
-      if (elementDiv.dataset.group === group) {
-        elementDiv.classList.add("bg-yellow-300");
-      } else {
-        elementDiv.classList.remove("bg-yellow-300");
-      }
-    });
-  }
-
-  addEventListeners() {
-    this.searchBar.addEventListener("input", (e) => {
-      const query = e.target.value.toLowerCase();
-
-      document.querySelectorAll("[data-atomic-number]").forEach((elementDiv) => {
-        const atomicNumber = elementDiv.dataset.atomicNumber;
-        const element = elements.find((el) => el.atomicNumber.toString() === atomicNumber);
-
-        if (
-          element.name.toLowerCase().includes(query) ||
-          element.symbol.toLowerCase().includes(query) ||
-          atomicNumber.includes(query)
-        ) {
-          elementDiv.classList.remove("hidden");
-        } else {
-          elementDiv.classList.add("hidden");
-        }
-      });
-    });
-  }
-}
-
-// Initialize the Periodic Table
-new PeriodicTable();
+    renderTable();
+});
