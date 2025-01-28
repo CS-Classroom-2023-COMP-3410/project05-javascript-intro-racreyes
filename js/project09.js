@@ -1,109 +1,130 @@
 //Sorting Algorithm Visualization Tool
-class SortingVisualization {
-  constructor() {
-    this.arrayContainer = document.getElementById("array-container");
-    this.algorithmSelector = document.getElementById("algorithm-selector");
-    this.speedSlider = document.getElementById("speed-slider");
-    this.resetButton = document.getElementById("reset-array");
-    this.startButton = document.getElementById("start-sort");
-    this.commentary = document.getElementById("commentary");
+document.addEventListener("DOMContentLoaded", () => {
+  const arrayContainer = document.getElementById("array-container");
+  const commentary = document.getElementById("commentary");
+  const algorithmSelector = document.getElementById("algorithm-selector");
+  const speedSlider = document.getElementById("speed-slider");
+  const resetArrayButton = document.getElementById("reset-array");
+  const startSortButton = document.getElementById("start-sort");
 
-    this.array = [];
-    this.animationSpeed = 500;
+  let array = [];
+  let animationSpeed = 500;
 
-    this.resetButton.addEventListener("click", () => this.resetArray());
-    this.startButton.addEventListener("click", () => this.startSorting());
-    this.speedSlider.addEventListener("input", (e) => this.updateSpeed(e.target.value));
-
-    this.resetArray();
-  }
-
-  resetArray() {
-    this.array = Array.from({ length: 20 }, () => Math.floor(Math.random() * 100) + 1);
-    this.renderArray();
-    this.commentary.textContent = "Array has been reset. Select an algorithm and click 'Start Sorting'.";
-  }
-
-  renderArray() {
-    this.arrayContainer.innerHTML = "";
-    this.array.forEach((value) => {
+  const generateArray = () => {
+    arrayContainer.innerHTML = "";
+    array = Array.from({ length: 20 }, () => Math.floor(Math.random() * 100) + 1);
+    array.forEach((value) => {
       const bar = document.createElement("div");
-      bar.style.height = `${value * 3}px`;
-      bar.className = "flex-1 mx-1 bg-blue-400 rounded";
-      this.arrayContainer.appendChild(bar);
+      bar.style.height = `${value}%`;
+      bar.className = "bg-blue-500 w-4 rounded-t";
+      bar.dataset.value = value;
+      arrayContainer.appendChild(bar);
     });
-  }
+    commentary.textContent = "New array generated. Select an algorithm and start sorting.";
+  };
 
-  updateSpeed(speed) {
-    this.animationSpeed = 1000 - speed;
-  }
+  const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
-  async startSorting() {
-    const algorithm = this.algorithmSelector.value;
-    if (algorithm === "bubble") {
-      await this.bubbleSort();
-    } else if (algorithm === "insertion") {
-      await this.insertionSort();
+  const updateBars = () => {
+    const bars = arrayContainer.children;
+    for (let i = 0; i < array.length; i++) {
+      bars[i].style.height = `${array[i]}%`;
+      bars[i].dataset.value = array[i];
     }
-  }
+  };
 
-  async bubbleSort() {
-    this.commentary.textContent = "Starting Bubble Sort...";
-    const bars = this.arrayContainer.children;
+  const bubbleSort = async () => {
+    commentary.textContent = "Performing Bubble Sort...";
+    const bars = arrayContainer.children;
+    for (let i = 0; i < array.length; i++) {
+      for (let j = 0; j < array.length - i - 1; j++) {
+        bars[j].classList.add("bg-red-500");
+        bars[j + 1].classList.add("bg-red-500");
 
-    for (let i = 0; i < this.array.length - 1; i++) {
-      for (let j = 0; j < this.array.length - i - 1; j++) {
-        bars[j].style.backgroundColor = "yellow";
-        bars[j + 1].style.backgroundColor = "yellow";
-
-        if (this.array[j] > this.array[j + 1]) {
-          this.commentary.textContent = `Swapping ${this.array[j]} and ${this.array[j + 1]}`;
-
-          // Swap the bars visually and in the array
-          [this.array[j], this.array[j + 1]] = [this.array[j + 1], this.array[j]];
-          this.renderArray();
-          await this.sleep(this.animationSpeed);
+        if (array[j] > array[j + 1]) {
+          [array[j], array[j + 1]] = [array[j + 1], array[j]];
+          updateBars();
+          commentary.textContent = `Swapped values ${array[j + 1]} and ${array[j]} at indices ${j} and ${j + 1}.`;
         }
 
-        bars[j].style.backgroundColor = "blue";
-        bars[j + 1].style.backgroundColor = "blue";
+        await sleep(animationSpeed);
+        bars[j].classList.remove("bg-red-500");
+        bars[j + 1].classList.remove("bg-red-500");
       }
     }
+    commentary.textContent = "Bubble Sort completed.";
+  };
 
-    this.commentary.textContent = "Bubble Sort completed!";
-  }
+  const selectionSort = async () => {
+    commentary.textContent = "Performing Selection Sort...";
+    const bars = arrayContainer.children;
+    for (let i = 0; i < array.length; i++) {
+      let minIndex = i;
+      bars[minIndex].classList.add("bg-green-500");
+      for (let j = i + 1; j < array.length; j++) {
+        bars[j].classList.add("bg-red-500");
+        if (array[j] < array[minIndex]) {
+          bars[minIndex].classList.remove("bg-green-500");
+          minIndex = j;
+          bars[minIndex].classList.add("bg-green-500");
+        }
+        await sleep(animationSpeed);
+        bars[j].classList.remove("bg-red-500");
+      }
+      if (minIndex !== i) {
+        [array[i], array[minIndex]] = [array[minIndex], array[i]];
+        updateBars();
+        commentary.textContent = `Swapped values ${array[i]} and ${array[minIndex]} at indices ${i} and ${minIndex}.`;
+      }
+      bars[minIndex].classList.remove("bg-green-500");
+    }
+    commentary.textContent = "Selection Sort completed.";
+  };
 
-  async insertionSort() {
-    this.commentary.textContent = "Starting Insertion Sort...";
-    const bars = this.arrayContainer.children;
-
-    for (let i = 1; i < this.array.length; i++) {
-      let key = this.array[i];
+  const insertionSort = async () => {
+    commentary.textContent = "Performing Insertion Sort...";
+    const bars = arrayContainer.children;
+    for (let i = 1; i < array.length; i++) {
+      let key = array[i];
       let j = i - 1;
-      bars[i].style.backgroundColor = "yellow";
-
-      while (j >= 0 && this.array[j] > key) {
-        this.commentary.textContent = `Moving ${this.array[j]} to the right`;
-
-        this.array[j + 1] = this.array[j];
-        this.renderArray();
-        await this.sleep(this.animationSpeed);
+      bars[i].classList.add("bg-yellow-500");
+      while (j >= 0 && array[j] > key) {
+        bars[j].classList.add("bg-red-500");
+        array[j + 1] = array[j];
+        updateBars();
+        commentary.textContent = `Moved value ${array[j]} to index ${j + 1}.`;
+        await sleep(animationSpeed);
+        bars[j].classList.remove("bg-red-500");
         j--;
       }
-
-      this.array[j + 1] = key;
-      this.renderArray();
-      await this.sleep(this.animationSpeed);
-      bars[i].style.backgroundColor = "blue";
+      array[j + 1] = key;
+      updateBars();
+      commentary.textContent = `Inserted value ${key} at index ${j + 1}.`;
+      bars[i].classList.remove("bg-yellow-500");
     }
+    commentary.textContent = "Insertion Sort completed.";
+  };
 
-    this.commentary.textContent = "Insertion Sort completed!";
-  }
+  resetArrayButton.addEventListener("click", generateArray);
 
-  sleep(ms) {
-    return new Promise((resolve) => setTimeout(resolve, ms));
-  }
-}
+  speedSlider.addEventListener("input", () => {
+    animationSpeed = 1000 - speedSlider.value;
+  });
 
-// Initialize the sorting visualization
-new SortingVisualization();
+  startSortButton.addEventListener("click", () => {
+    const algorithm = algorithmSelector.value;
+    switch (algorithm) {
+      case "bubble":
+        bubbleSort();
+        break;
+      case "selection":
+        selectionSort();
+        break;
+      case "insertion":
+        insertionSort();
+        break;
+    }
+  });
+
+  generateArray();
+});

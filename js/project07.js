@@ -1,123 +1,119 @@
 //Interactive Calculator
-class Calculator {
-  constructor() {
-    this.displayElement = document.getElementById("display");
-    this.currentInput = "";
-    this.memory = 0;
-    this.operation = null;
-    this.result = 0;
-    this.addEventListeners();
-  }
+document.addEventListener("DOMContentLoaded", () => {
+  const display = document.getElementById("display");
+  let currentInput = "0";
+  let previousInput = null;
+  let operator = null;
+  let memory = 0;
 
-  addEventListeners() {
-    document.querySelectorAll(".btn-number").forEach((btn) => {
-      btn.addEventListener("click", (e) => this.appendNumber(e.target.textContent));
-    });
+  const updateDisplay = () => {
+    display.textContent = currentInput;
+  };
 
-    document.querySelectorAll(".btn-operator").forEach((btn) => {
-      btn.addEventListener("click", (e) => this.setOperation(e.target.textContent));
-    });
+  const clearDisplay = () => {
+    currentInput = "0";
+    previousInput = null;
+    operator = null;
+    updateDisplay();
+  };
 
-    document.querySelector(".btn-equals").addEventListener("click", () => this.calculate());
-    document.querySelector(".btn-clear").addEventListener("click", () => this.clear());
-    document.querySelector(".btn-undo").addEventListener("click", () => this.undo());
+  const handleNumber = (number) => {
+    if (currentInput === "0") {
+      currentInput = number;
+    } else {
+      currentInput += number;
+    }
+    updateDisplay();
+  };
 
-    document.querySelector(".btn-function").addEventListener("click", (e) => {
-      if (e.target.textContent === "√") this.squareRoot();
-      if (e.target.textContent === "%") this.percentage();
-    });
+  const handleOperator = (newOperator) => {
+    if (operator && previousInput !== null) {
+      calculate();
+    }
+    operator = newOperator;
+    previousInput = currentInput;
+    currentInput = "0";
+  };
 
-    document.querySelectorAll(".btn-memory").forEach((btn) => {
-      btn.addEventListener("click", (e) => {
-        if (e.target.textContent === "M+") this.memoryAdd();
-        if (e.target.textContent === "MR") this.memoryRecall();
-      });
-    });
-  }
+  const calculate = () => {
+    const current = parseFloat(currentInput);
+    const previous = parseFloat(previousInput);
 
-  appendNumber(number) {
-    this.currentInput += number;
-    this.updateDisplay(this.currentInput);
-  }
+    if (isNaN(current) || isNaN(previous)) return;
 
-  setOperation(operator) {
-    if (this.currentInput === "") return;
-    this.operation = operator;
-    this.result = parseFloat(this.currentInput);
-    this.currentInput = "";
-  }
-
-  calculate() {
-    if (!this.operation || this.currentInput === "") return;
-
-    const currentNumber = parseFloat(this.currentInput);
-
-    switch (this.operation) {
+    switch (operator) {
       case "+":
-        this.result += currentNumber;
+        currentInput = (previous + current).toString();
         break;
       case "-":
-        this.result -= currentNumber;
+        currentInput = (previous - current).toString();
         break;
       case "*":
-        this.result *= currentNumber;
+        currentInput = (previous * current).toString();
         break;
       case "/":
-        if (currentNumber === 0) {
-          this.updateDisplay("Error");
-          this.clear();
-          return;
-        }
-        this.result /= currentNumber;
+        currentInput = current === 0 ? "Error" : (previous / current).toString();
         break;
     }
 
-    this.updateDisplay(this.result);
-    this.currentInput = "";
-    this.operation = null;
-  }
+    operator = null;
+    previousInput = null;
+    updateDisplay();
+  };
 
-  clear() {
-    this.currentInput = "";
-    this.result = 0;
-    this.operation = null;
-    this.updateDisplay("0");
-  }
+  const handleFunction = (func) => {
+    const current = parseFloat(currentInput);
+    if (isNaN(current)) return;
 
-  undo() {
-    this.currentInput = this.currentInput.slice(0, -1);
-    this.updateDisplay(this.currentInput || "0");
-  }
-
-  squareRoot() {
-    const number = parseFloat(this.currentInput);
-    if (number < 0) {
-      this.updateDisplay("Error");
-      this.clear();
-      return;
+    switch (func) {
+      case "√":
+        currentInput = current >= 0 ? Math.sqrt(current).toString() : "Error";
+        break;
+      case "%":
+        currentInput = (current / 100).toString();
+        break;
     }
-    this.currentInput = Math.sqrt(number).toString();
-    this.updateDisplay(this.currentInput);
-  }
 
-  percentage() {
-    this.currentInput = (parseFloat(this.currentInput) / 100).toString();
-    this.updateDisplay(this.currentInput);
-  }
+    updateDisplay();
+  };
 
-  memoryAdd() {
-    this.memory += parseFloat(this.currentInput) || 0;
-  }
+  const handleMemory = (action) => {
+    const current = parseFloat(currentInput);
+    if (isNaN(current)) return;
 
-  memoryRecall() {
-    this.currentInput = this.memory.toString();
-    this.updateDisplay(this.currentInput);
-  }
+    switch (action) {
+      case "M+":
+        memory += current;
+        break;
+      case "MR":
+        currentInput = memory.toString();
+        updateDisplay();
+        break;
+    }
+  };
 
-  updateDisplay(value) {
-    this.displayElement.textContent = value;
-  }
-}
+  document.querySelectorAll(".btn-number").forEach((btn) => {
+    btn.addEventListener("click", () => handleNumber(btn.textContent));
+  });
 
-// Initialize the calculator
-new Calculator();
+  document.querySelectorAll(".btn-operator").forEach((btn) => {
+    btn.addEventListener("click", () => handleOperator(btn.textContent));
+  });
+
+  document.querySelector(".btn-equals").addEventListener("click", calculate);
+  document.querySelector(".btn-clear").addEventListener("click", clearDisplay);
+  document.querySelector(".btn-undo").addEventListener("click", () => {
+    currentInput = currentInput.slice(0, -1) || "0";
+    updateDisplay();
+  });
+
+  document.querySelectorAll(".btn-function").forEach((btn) => {
+    btn.addEventListener("click", () => handleFunction(btn.textContent));
+  });
+
+  document.querySelectorAll(".btn-memory").forEach((btn) => {
+    btn.addEventListener("click", () => handleMemory(btn.textContent));
+  });
+
+  updateDisplay();
+});

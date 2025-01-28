@@ -7,12 +7,15 @@ class KeyboardTrainer {
     this.inputField = document.getElementById("input-field");
     this.wpmDisplay = document.getElementById("wpm");
     this.accuracyDisplay = document.getElementById("accuracy");
+    this.resultsContainer = document.getElementById("results-container");
 
     this.text = "";
     this.startTime = null;
     this.errors = 0;
     this.totalChars = 0;
     this.correctChars = 0;
+    this.overallCorrectChars = 0;
+    this.overallTotalChars = 0;
 
     this.wordList = [
       "apple", "banana", "cherry", "dragon", "elephant", "flower", "giraffe", "honey", "island", "jungle",
@@ -50,6 +53,7 @@ class KeyboardTrainer {
     this.wpmDisplay.textContent = "WPM: 0";
     this.accuracyDisplay.textContent = "Accuracy: 0%";
     this.inputField.value = "";
+    this.resultsContainer.innerHTML = "";
   }
 
   handleInput(event) {
@@ -75,14 +79,16 @@ class KeyboardTrainer {
     const wordsTyped = input.split(" ").length;
     const wpm = Math.round(wordsTyped / elapsedTime) || 0;
 
-    const accuracy = Math.round((this.correctChars / input.length) * 100) || 0;
+    const currentAccuracy = Math.round((this.correctChars / input.length) * 100) || 0;
 
     this.wpmDisplay.textContent = `WPM: ${wpm}`;
-    this.accuracyDisplay.textContent = `Accuracy: ${accuracy}%`;
+    this.accuracyDisplay.textContent = `Accuracy: ${currentAccuracy}%`;
 
     this.highlightErrors(input);
 
     if (input.trim() === this.text.trim()) {
+      this.overallCorrectChars += this.correctChars;
+      this.overallTotalChars += this.text.length;
       this.finish();
     }
   }
@@ -104,6 +110,21 @@ class KeyboardTrainer {
 
   finish() {
     this.inputField.disabled = true;
+    const elapsedTime = (new Date() - this.startTime) / 1000; // time in seconds
+    const wpm = Math.round((this.correctChars / 5) / (elapsedTime / 60)) || 0;
+    const currentAccuracy = Math.round((this.correctChars / this.totalChars) * 100) || 0;
+    const overallAccuracy = Math.round((this.overallCorrectChars / this.overallTotalChars) * 100) || 0;
+
+    this.resultsContainer.innerHTML = `
+      <div class="p-4 bg-gray-100 rounded shadow">
+        <h2 class="text-lg font-bold text-gray-800">Results Summary</h2>
+        <p>Total Time: ${(elapsedTime / 60).toFixed(2)} minutes</p>
+        <p>Words Per Minute (WPM): ${wpm}</p>
+        <p>Current Accuracy: ${currentAccuracy}%</p>
+        <p>Overall Accuracy: ${overallAccuracy}%</p>
+      </div>
+    `;
+
     this.textContainer.innerHTML = "<span class='text-green-500'>Well done! You completed the text.</span>";
   }
 

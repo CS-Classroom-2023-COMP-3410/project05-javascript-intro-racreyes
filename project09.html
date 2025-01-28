@@ -12,11 +12,13 @@
   <div class="w-full max-w-4xl bg-white bg-opacity-20 backdrop-blur-md p-6 rounded-lg shadow-lg">
     <h1 class="text-3xl font-bold mb-6 text-center">Sorting Visualization Tool</h1>
 
+    <!-- Controls Section -->
     <div class="flex items-center justify-between mb-6">
       <label>
         <span class="mr-2">Select Algorithm:</span>
         <select id="algorithm-selector" class="px-2 py-1 rounded bg-white text-black">
           <option value="bubble">Bubble Sort</option>
+          <option value="selection">Selection Sort</option>
           <option value="insertion">Insertion Sort</option>
         </select>
       </label>
@@ -29,14 +31,17 @@
       <button id="reset-array" class="px-4 py-2 bg-red-500 hover:bg-red-600 text-white rounded">Reset Array</button>
     </div>
 
+    <!-- Visualization Container -->
     <div id="array-container" class="flex items-end h-64 bg-gray-800 rounded p-4">
       <!-- Bars will be dynamically added here -->
     </div>
 
+    <!-- Start Sorting Button -->
     <button id="start-sort" class="mt-6 px-6 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded">Start Sorting</button>
 
+    <!-- Commentary Section -->
     <div id="commentary" class="mt-6 text-lg bg-white bg-opacity-30 p-4 rounded">
-      <!-- Explanations will be displayed here -->
+      Select an algorithm, adjust the animation speed, and click "Start Sorting" to visualize the process!
     </div>
   </div>
 
